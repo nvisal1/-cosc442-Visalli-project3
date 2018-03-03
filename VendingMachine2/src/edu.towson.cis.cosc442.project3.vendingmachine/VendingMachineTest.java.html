@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>VendingMachineTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">VendingMachine2 (Mar 3, 2018 1:42:16 PM)</a> &gt; <a href="../../index.html" class="el_group">VendingMachine2</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">edu.towson.cis.cosc442.project3.vendingmachine</a> &gt; <span class="el_source">VendingMachineTest.java</span></div><h1>VendingMachineTest.java</h1><pre class="source lang-java linenums">package edu.towson.cis.cosc442.project3.vendingmachine;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+<span class="fc" id="L12">public class VendingMachineTest {</span>
+	VendingMachine vending;
+	VendingMachineItem item;
+	VendingMachineItem item2;
+
+	@Before
+	public void setUp() throws Exception {
+<span class="fc" id="L19">	    vending = new VendingMachine(); </span>
+<span class="fc" id="L20">	    item = new VendingMachineItem(&quot;Pepsi&quot;, 1.57); </span>
+<span class="fc" id="L21">	    item2 = new VendingMachineItem(&quot;Coke-A-Cola&quot;, 1.39);</span>
+<span class="fc" id="L22">	}</span>
+
+	//testAddItem tests the addItem method with normal input.
+	@Test
+	public void testAddItem() {
+		try {
+<span class="fc" id="L28">			vending.addItem(item, &quot;A&quot;);</span>
+<span class="fc" id="L29">			assertEquals(&quot;Result&quot;,item,vending.getItem(&quot;A&quot;));</span>
+<span class="fc" id="L30">		}</span>
+<span class="nc" id="L31">		catch (Exception e) { </span>
+<span class="nc" id="L32">			fail(&quot;Should not have thrown exception!&quot;);</span>
+		}
+<span class="fc" id="L34">	}</span>
+	
+	@Test
+	public void testAddItemSlotB() {
+		try {
+<span class="fc" id="L39">			vending.addItem(item, &quot;B&quot;);</span>
+<span class="fc" id="L40">			assertEquals(&quot;Result&quot;,item,vending.getItem(&quot;B&quot;));</span>
+<span class="fc" id="L41">		}</span>
+<span class="nc" id="L42">		catch (Exception e) { </span>
+<span class="nc" id="L43">			fail(&quot;Should not have thrown exception!&quot;);</span>
+		}
+<span class="fc" id="L45">	}</span>
+	
+	@Test
+	public void testAddItemSlotC() {
+		try {
+<span class="fc" id="L50">			vending.addItem(item, &quot;C&quot;);</span>
+<span class="fc" id="L51">			assertEquals(&quot;Result&quot;,item,vending.getItem(&quot;C&quot;));</span>
+<span class="fc" id="L52">		}</span>
+<span class="nc" id="L53">		catch (Exception e) { </span>
+<span class="nc" id="L54">			fail(&quot;Should not have thrown exception!&quot;);</span>
+		}
+<span class="fc" id="L56">	}</span>
+	
+	@Test
+	public void testAddItemSlotD() {
+		try {
+<span class="fc" id="L61">			vending.addItem(item, &quot;D&quot;);</span>
+<span class="fc" id="L62">			assertEquals(&quot;Result&quot;,item,vending.getItem(&quot;D&quot;));</span>
+<span class="fc" id="L63">		}</span>
+<span class="nc" id="L64">		catch (Exception e) { </span>
+<span class="nc" id="L65">			fail(&quot;Should not have thrown exception!&quot;);</span>
+		}
+<span class="fc" id="L67">	}</span>
+	
+	//testAddItemInvalidCode tests the addItem method with an invalid input 
+	//in order to make sure the an exception is thrown
+	@Test
+	public void testAddItemInvalidCode() {
+		try {
+<span class="nc" id="L74">			vending.addItem(item, &quot;E&quot;);</span>
+<span class="nc" id="L75">			assertEquals(&quot;Result&quot;,item,vending.getItem(&quot;E&quot;));</span>
+<span class="nc" id="L76">			fail(&quot;Should have thrown exception&quot;); </span>
+<span class="nc" id="L77">		} </span>
+<span class="fc" id="L78">		catch (Exception e) {</span>
+<span class="fc" id="L79">		    String expectedMessage = &quot;Invalid code for vending machine item&quot;;</span>
+<span class="fc" id="L80">		    assertEquals( &quot;Exception message must be correct&quot;, expectedMessage, e.getMessage() );</span>
+		}   
+<span class="fc" id="L82">	}</span>
+	
+	//testAddItemAlreadyOccupied tests the addItem method by adding two items to the same slot 
+	//in order to make sure that an exception is thrown
+	@Test
+	public void testAddItemAlreadyOccupied() {
+
+		try {
+<span class="fc" id="L90">			vending.addItem(item, &quot;A&quot;);</span>
+<span class="nc" id="L91">			vending.addItem(item2, &quot;A&quot;);</span>
+			//assertEquals(&quot;Result&quot;,item,vending.getItem(&quot;A&quot;));
+<span class="nc" id="L93">			fail(&quot;Should have thrown exception&quot;); </span>
+<span class="nc" id="L94">		} </span>
+<span class="fc" id="L95">		catch (Exception e) {</span>
+<span class="fc" id="L96">		    String expectedMessage = &quot;Slot A already occupied&quot;;</span>
+<span class="fc" id="L97">		    assertEquals( &quot;Exception message must be correct&quot;, expectedMessage, e.getMessage() );</span>
+		}   
+<span class="fc" id="L99">	}</span>
+	
+	//testRemoveItem adds an item and then calls removeItem to 
+	//ensure that added item is properly removed.
+	@Test
+	public void testRemoveItem() {
+
+<span class="fc" id="L106">		vending.addItem(item, &quot;A&quot;);</span>
+<span class="fc" id="L107">		assertEquals(item, vending.removeItem(&quot;A&quot;));</span>
+<span class="fc" id="L108">	}</span>
+	
+	//testRemoveItemIsEmpty tries to remove an item that doesn't exist in 
+	//order to make sure that an exception is thrown
+	@Test
+	public void testRemoveItemIsEmpty() {
+		try {
+			//vending.addItem(item, &quot;A&quot;);
+<span class="nc" id="L116">			assertEquals(item, vending.removeItem(&quot;A&quot;));</span>
+<span class="nc" id="L117">			fail(&quot;Should have thrown exception&quot;); </span>
+<span class="nc" id="L118">		} </span>
+<span class="fc" id="L119">		catch (Exception e) {</span>
+<span class="fc" id="L120">		    String expectedMessage = &quot;Slot A is empty -- cannot remove item&quot;;</span>
+<span class="fc" id="L121">		    assertEquals( &quot;Exception message must be correct&quot;, expectedMessage, e.getMessage() );</span>
+		}   
+<span class="fc" id="L123">	}</span>
+	
+	
+	//testInsertMoney calls insertMoney and then calls getBalance to ensure 
+	//that the appropriate amount was correctly inserted. 
+	@Test
+	public void testInsertMoney() {
+<span class="fc" id="L130">		vending.insertMoney(1.57);</span>
+<span class="fc" id="L131">		assertEquals(1.57, vending.getBalance(), 0); </span>
+<span class="fc" id="L132">	}</span>
+	
+	//testInsuertMoneyInvalidAmount tries to insert a negative amount 
+	//of money into the vending machine in order to make sure it throws an exception
+	
+	@Test
+	public void testInsertMoneyInvalidAmount() {
+		try {
+<span class="nc" id="L140">			vending.insertMoney(-5);</span>
+			//assertEquals(1.57, vending.getBalance(), 0);
+<span class="nc" id="L142">			fail(&quot;Should have thrown exception&quot;); </span>
+<span class="nc" id="L143">		} </span>
+<span class="fc" id="L144">		catch (Exception e) {</span>
+<span class="fc" id="L145">		    String expectedMessage = &quot;Invalid amount.  Amount must be &gt;= 0&quot;;</span>
+<span class="fc" id="L146">		    assertEquals( &quot;Exception message must be correct&quot;, expectedMessage, e.getMessage() );</span>
+		}   
+<span class="fc" id="L148">	}</span>
+	
+	//testGetBalance checks to ensure that the initial balance is 0
+	
+	@Test
+	public void testGetBalance() {
+<span class="fc" id="L154">		assertEquals(0, vending.getBalance(), 0); </span>
+<span class="fc" id="L155">	}</span>
+	
+	//testMakePurchase adds an item, inserts cash, and checks to make
+	//sure a standard purchase can be made.
+	
+	@Test
+	public void testMakePurchase() {
+<span class="fc" id="L162">		vending.addItem(item, &quot;A&quot;);</span>
+<span class="fc" id="L163">		vending.insertMoney(1.57);</span>
+<span class="fc" id="L164">		assertTrue(&quot;Purchase should be successful&quot;,vending.makePurchase(&quot;A&quot;));</span>
+<span class="fc" id="L165">	}</span>
+	
+	//testMakePurchaseFalse purposely enters an insufficient amount of money 
+	//in order to make sure that an exception is thrown 
+	
+	@Test
+	public void testMakePurchaseFalse() { 
+<span class="fc" id="L172">		vending.addItem(item, &quot;A&quot;);</span>
+<span class="fc" id="L173">		vending.insertMoney(1.50);</span>
+<span class="fc" id="L174">		assertFalse(&quot;Purchase should be unsuccessful&quot;,vending.makePurchase(&quot;A&quot;));</span>
+<span class="fc" id="L175">	}</span>
+	
+	//testReturnChange inserts an amount of money, makes a purchase 
+	//and checks to make sure that the customer receives the correct change. 
+	
+	@Test
+	public void testReturnChange() {
+<span class="fc" id="L182">		vending.insertMoney(1.57);</span>
+<span class="fc" id="L183">		vending.addItem(item, &quot;A&quot;);</span>
+<span class="fc" id="L184">		vending.makePurchase(&quot;A&quot;); </span>
+<span class="fc" id="L185">		assertEquals(0, vending.returnChange(), 0);</span>
+<span class="fc" id="L186">	}</span>
+	
+	//testReturnChange2 inserts a negative amount of money and then asks for change. 
+	//This ensures that after trying to enter a negative amount, the balance is still 0
+	
+	@Test
+	public void testReturnChange2() {
+		try {
+<span class="nc" id="L194">			vending.insertMoney(-5);</span>
+			//assertEquals(1.57, vending.getBalance(), 0);
+<span class="nc" id="L196">			fail(&quot;Should have thrown exception&quot;); </span>
+<span class="nc" id="L197">		} </span>
+<span class="fc" id="L198">		catch (Exception e) {</span>
+<span class="fc" id="L199">		    String expectedMessage = &quot;Invalid amount.  Amount must be &gt;= 0&quot;;</span>
+<span class="fc" id="L200">		    assertEquals( &quot;Exception message must be correct&quot;, expectedMessage, e.getMessage() );</span>
+<span class="fc" id="L201">		    assertEquals(0 , vending.returnChange(), 0);</span>
+		}   
+<span class="fc" id="L203">	}</span>
+
+	@After
+	public void tearDown(){
+<span class="fc" id="L207">		vending = null;</span>
+<span class="fc" id="L208">		item = null; </span>
+<span class="fc" id="L209">		item2 = null; </span>
+<span class="fc" id="L210">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span>VendingMachine2 (Mar 3, 2018 1:42:16 PM)</div></body></html>
